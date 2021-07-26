@@ -6,8 +6,8 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 //const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-// const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
-// const NotFoundError = require('./errors/NotFoundError');
+ const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
+ const NotFoundError = require('./errors/NotFoundError');
 
 const {
   PORT = 3000,
@@ -35,12 +35,12 @@ app.use(express.json());
 // app.use('/', usersRoutes);
 // app.use('/', cardsRoutes);
 
-// app.get('*', (req, res, next) => {
-//   next(new NotFoundError('Ошибка 404. Страница не найдена'));
-// });
+app.get('*', (req, res, next) => {
+  next(new NotFoundError('Ошибка 404. Страница не найдена'));
+});
 
 //app.use(errorLogger);
 app.use(errors());
-//app.use(centralizedErrorHandling);
+app.use(centralizedErrorHandling);
 
 app.listen(PORT);
