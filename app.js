@@ -5,9 +5,9 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cors = require('cors');
 //const { requestLogger, errorLogger } = require('./middlewares/logger');
-
- const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
- const NotFoundError = require('./errors/NotFoundError');
+const usersRoutes = require('./routes/users');
+const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
+const NotFoundError = require('./errors/NotFoundError');
 
 const {
   PORT = 3000,
@@ -32,7 +32,7 @@ app.use(express.json());
 //   }, 0);
 // });
 
-// app.use('/', usersRoutes);
+app.use('/', usersRoutes);
 // app.use('/', cardsRoutes);
 
 app.get('*', (req, res, next) => {
