@@ -2,17 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const { errors } = require('celebrate');
+//const { errors } = require('celebrate');
 const cors = require('cors');
 //const { requestLogger, errorLogger } = require('./middlewares/logger');
-const usersRoutes = require('./routes/users');
+//const usersRoutes = require('./routes/users');
+const router = require('./routes/index');
 const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
 const NotFoundError = require('./errors/NotFoundError');
+
 
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://localhost:27017/bitfilmsdb',
 } = process.env;
+
 const app = express();
 
 mongoose.connect(MONGO_URL, {
@@ -31,8 +34,8 @@ app.use(express.json());
 //     throw new Error('Сервер сейчас упадёт');
 //   }, 0);
 // });
-
-app.use('/', usersRoutes);
+app.use(router);
+//app.use('/', usersRoutes);
 // app.use('/', cardsRoutes);
 
 app.get('*', (req, res, next) => {
@@ -40,7 +43,7 @@ app.get('*', (req, res, next) => {
 });
 
 //app.use(errorLogger);
-app.use(errors());
+//app.use(errors());
 app.use(centralizedErrorHandling);
 
 app.listen(PORT);

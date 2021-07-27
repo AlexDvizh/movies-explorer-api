@@ -39,12 +39,10 @@ exports.updateInfoByCurrentUser = (req, res, next) => {
 };
 
 exports.registerUser = (req, res, next) => {
-  const { email } = req.body;
-  bcrypt.hash(req.body.password, 10)
+  const { name, email, password } = req.body;
+  bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: hash,
+      name, email, password: hash,
     }))
     .then(() => User.findOne({ email }).select('-password'))
     .then((user) => res.status(200).send(user))
