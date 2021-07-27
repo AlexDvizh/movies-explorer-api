@@ -1,12 +1,8 @@
 const usersRoutes = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const validator = require('validator');
-const { getUserById, updateInfoByCurrentUser, registerUser, loginUser } = require('../controllers/users');
+const { getUserById, updateInfoByCurrentUser } = require('../controllers/users');
+const { validateUpdatedUser } = require('../middlewares/validation');
 
-
-// usersRoutes.post('/signup', registerUser);
-// usersRoutes.post('/signin', loginUser);
 usersRoutes.get('/users/me', getUserById);
-usersRoutes.patch('/users/me',updateInfoByCurrentUser);
+usersRoutes.patch('/users/me', validateUpdatedUser, updateInfoByCurrentUser);
 
 module.exports = usersRoutes;

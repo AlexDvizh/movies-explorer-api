@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-//const { errors } = require('celebrate');
+const { errors } = require('celebrate');
 const cors = require('cors');
-//const { requestLogger, errorLogger } = require('./middlewares/logger');
+const limiter = require('./middlewares/limiter');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 //const usersRoutes = require('./routes/users');
 const router = require('./routes/index');
 const centralizedErrorHandling = require('./middlewares/centralizedErrorHandling');
@@ -25,7 +26,8 @@ mongoose.connect(MONGO_URL, {
   useUnifiedTopology: true,
 });
 app.use(cors());
-//app.use(requestLogger);
+app.use(requestLogger);
+app.use(limiter);
 app.use(helmet());
 app.use(express.json());
 
@@ -42,8 +44,8 @@ app.get('*', (req, res, next) => {
   next(new NotFoundError('Ошибка 404. Страница не найдена'));
 });
 
-//app.use(errorLogger);
-//app.use(errors());
+app.use(errorLogger);
+app.use(errors());
 app.use(centralizedErrorHandling);
 
 app.listen(PORT);

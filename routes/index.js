@@ -1,15 +1,14 @@
 const router = require('express').Router();
 const { registerUser, loginUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
-const usersRouter = require('./users');
-//const moviesRouter = require('./movies');
+const usersRoutes = require('./users');
+const moviesRouter = require('./movies');
+const { validateRegister, validateLogin } = require('../middlewares/validation');
 
-//const router = express.Router();
-
-router.post('/signup', registerUser);
-router.post('/signin', loginUser);
+router.post('/signup', validateRegister, registerUser);
+router.post('/signin', validateLogin, loginUser);
 router.use(auth);
-router.use('/', usersRouter);
-//router.use('/movies', moviesRouter);
+router.use('/', usersRoutes);
+router.use('/', moviesRouter);
 
 module.exports = router;
