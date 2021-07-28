@@ -31,14 +31,13 @@ app.use(limiter);
 app.use(helmet());
 app.use(express.json());
 
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(router);
-//app.use('/', usersRoutes);
-// app.use('/', cardsRoutes);
 
 app.get('*', (req, res, next) => {
   next(new NotFoundError('Ошибка 404. Страница не найдена'));
