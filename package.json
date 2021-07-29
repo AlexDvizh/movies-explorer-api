@@ -1,0 +1,40 @@
+{
+  "name": "movie-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "npx eslint .",
+    "start": "npm run dev",
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexDvizh/movies-explorer-api.git"
+  },
+  "author": "Alexander Zdvizhkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexDvizh/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/AlexDvizh/movies-explorer-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "celebrate": "^15.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.31.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "express-router": "0.0.1",
+    "express-winston": "^4.1.0",
+    "helmet": "^4.6.0",
+    "jest": "^27.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "nodemon": "^2.0.12",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
+  }
+}
