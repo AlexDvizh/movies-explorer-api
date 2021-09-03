@@ -3,14 +3,14 @@ const NotValidData = require('../errors/NotValidData');
 const NotFoundError = require('../errors/NotFoundError');
 const NotValidCard = require('../errors/NotValidCard');
 
-exports.getMovies = (req, res, next) => {
+const getMovies = (req, res, next) => {
   Movie.find({})
     .populate(['owner'])
     .then((movies) => res.send(movies))
     .catch(next);
 };
 
-exports.createMovie = (req, res, next) => {
+const createMovie = (req, res, next) => {
   const owner = req.user._id;
   const newMovie = { ...req.body, owner };
 
@@ -29,7 +29,7 @@ exports.createMovie = (req, res, next) => {
     });
 };
 
-exports.deleteMovie = (req, res, next) => {
+const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .orFail(() => new NotFoundError('Фильм с указанным _id не найден'))
     .then((movie) => {
@@ -48,3 +48,5 @@ exports.deleteMovie = (req, res, next) => {
       }
     });
 };
+
+module.exports = { getMovies, createMovie, deleteMovie };
